@@ -172,7 +172,7 @@ class MainActivity : ComponentActivity() {
                         startActivity(
                             FlutterActivity
                                 .withNewEngine()
-                                .initialRoute("/my_route")
+                                .initialRoute("/init_app")
                                 .build(this)
                         )
                     })
