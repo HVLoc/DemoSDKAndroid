@@ -12,9 +12,10 @@ class EkycFlutterActivity : FlutterActivity() {
         super.configureFlutterEngine(flutterEngine)
         MethodChannel(flutterEngine.dartExecutor.binaryMessenger, CHANNEL).setMethodCallHandler { call, result ->
             if (call.method == "sendData") {
-                val data = call.argument<String>("value")
+                val userInfoModel = call.argument<Map<String, Any>>("userInfoModel")
+                val sendNfcModel = call.argument<Map<String, Any>>("sendNfcModel")
                 // Xử lý dữ liệu nhận được từ Flutter
-                println("Received from Flutter: $data")
+                println("Received from Flutter: ${userInfoModel.toString()}")
 
                 // Đóng Activity (Flutter SDK)
                 finish()
