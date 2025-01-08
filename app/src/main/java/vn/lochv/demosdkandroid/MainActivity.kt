@@ -14,14 +14,26 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import io.flutter.embedding.android.FlutterActivity
 import org.json.JSONObject
 import vn.lochv.demosdkandroid.ui.theme.DemoSDKAndroidTheme
+import io.flutter.embedding.engine.FlutterEngine
+import io.flutter.embedding.engine.FlutterEngineCache
+import io.flutter.embedding.engine.dart.DartExecutor
+import io.flutter.plugin.common.MethodChannel
 
 class MainActivity : ComponentActivity() {
+    lateinit var flutterEngine: FlutterEngine
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+        flutterEngine = FlutterEngine(this)
+
+        flutterEngine.dartExecutor.executeDartEntrypoint(
+                DartExecutor.DartEntrypoint.createDefault()
+            )
+
         setContent {
             DemoSDKAndroidTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
@@ -30,25 +42,7 @@ class MainActivity : ComponentActivity() {
                     )
 
                     MyButton(onClick = {
-                        // Khai báo dữ liệu dưới dạng Map
-                        val jsonPayload = mapOf(
-                            "key" to "89f797ab-ec41-446a-8dc1-1dfda5e7e93d",
-                            "secretKey" to "63f81c69722acaa42f622ec16d702fdb",
-                            "CCCD" to "020098007724"
-                        )
-                        // Chuyển đổi Map thành chuỗi JSON
-                        val jsonString = JSONObject(jsonPayload).toString()
-
-                        // Mã hóa JSON để đảm bảo truyền an toàn qua URL
-                        val encodedPayload = Uri.encode(jsonString)
-
-
-                        // Mã hóa tham số vào initialRoute
-                        val initialRoute = "/init_app?payload=$encodedPayload"
-                        val intent = Intent(this, EkycFlutterActivity::class.java).apply {
-                            putExtra("initialRoute", initialRoute)
-                        }
-                        startActivity(intent)
+                        startActivity(Intent(this, EkycFlutterActivity::class.java))
                     })
                 }
             }
