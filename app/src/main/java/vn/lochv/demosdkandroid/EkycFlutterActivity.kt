@@ -18,8 +18,8 @@ class EkycFlutterActivity : FlutterActivity() {
         ).setMethodCallHandler { call, result ->
             when (call.method) {
                 "dataUser" -> {
-                    val userInfoModel = call.argument<Map<String, Any>>("userInfoModel")
-                    val sendNfcModel = call.argument<Map<String, Any>>("sendNfcModel")
+                    val userInfoModel = call.argument<Map<String, Any>>("value")
+
                     // Xử lý dữ liệu nhận được từ Flutter
                     println("Received from Flutter: ${userInfoModel.toString()}")
 
