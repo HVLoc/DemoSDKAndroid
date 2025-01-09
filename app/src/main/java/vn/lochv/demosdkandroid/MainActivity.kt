@@ -14,6 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.google.gson.Gson
 import io.flutter.embedding.android.FlutterActivity
 import org.json.JSONObject
 import vn.lochv.demosdkandroid.ui.theme.DemoSDKAndroidTheme

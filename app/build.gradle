@@ -66,6 +66,8 @@ dependencies {
     androidTestImplementation libs.androidx.ui.test.junit4
     debugImplementation libs.androidx.ui.tooling
     debugImplementation libs.androidx.ui.test.manifest
+    implementation 'com.google.code.gson:gson:2.10'
+    implementation "io.coil-kt:coil-compose:2.4.0" // Sử dụng phiên bản mới nhất
 
     debugImplementation 'com.example.module_ekyc:flutter_debug:1.0'
     profileImplementation 'com.example.module_ekyc:flutter_profile:1.0'
