@@ -13,7 +13,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.google.gson.Gson
 import io.flutter.embedding.android.FlutterActivity
 import org.json.JSONObject
@@ -32,22 +34,43 @@ class MainActivity : ComponentActivity() {
         flutterEngine = FlutterEngine(this)
 
         flutterEngine.dartExecutor.executeDartEntrypoint(
-                DartExecutor.DartEntrypoint.createDefault()
-            )
+            DartExecutor.DartEntrypoint.createDefault()
+        )
 
         setContent {
             DemoSDKAndroidTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android", modifier = Modifier.padding(innerPadding)
-                    )
+                Scaffold(
+                    modifier = Modifier.fillMaxSize()
+                ) { innerPadding ->
+                    val context = LocalContext.current
 
-                    MyButton(onClick = {
-                        startActivity(Intent(this, EkycFlutterActivity::class.java))
-                    })
+                    Column(
+                        modifier = Modifier
+                            .padding(innerPadding)
+                            .fillMaxSize(),
+                        verticalArrangement = Arrangement.Center, // Thêm khoảng cách giữa các phần tử
+                        horizontalAlignment = Alignment.CenterHorizontally // Căn giữa theo chiều ngang
+                    ) {
+                        Greeting(name = "Android")
+
+                        MyButton(
+                            onClick = {
+                                context.startActivity(Intent(context, EkycFlutterActivity::class.java))
+                            },
+                            title = "Launch EKYC Flutter!"
+                        )
+
+                        MyButton(
+                            onClick = {
+                                context.startActivity(Intent(context, NFCFlutterActivity::class.java))
+                            },
+                            title = "Launch NFC Flutter!"
+                        )
+                    }
                 }
             }
         }
+
     }
 }
 
@@ -67,12 +90,13 @@ fun GreetingPreview() {
 }
 
 @Composable
-fun MyButton(onClick: () -> Unit) {
+fun MyButton(onClick: () -> Unit, title: String) {
     Box(
-        modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center
+        contentAlignment = Alignment.Center
     ) {
         Button(onClick = onClick) {
-            Text("Launch Flutter!")
+            Text(title)
         }
     }
 }
+
