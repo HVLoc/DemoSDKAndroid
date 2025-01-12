@@ -43,6 +43,7 @@ class MainActivity : ComponentActivity() {
                     )
 
                     MyButton(onClick = {
+                        // Mở màn hình SDK Flutter
                         startActivity(Intent(this, EkycFlutterActivity::class.java))
                     })
                 }

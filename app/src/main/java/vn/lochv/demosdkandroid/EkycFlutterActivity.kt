@@ -41,10 +41,10 @@ class EkycFlutterActivity : FlutterActivity() {
                 "setInitial" -> {
                     // Khai báo dữ liệu dưới dạng Map
                     val jsonPayload = mapOf(
-                        "key" to "89f797ab-ec41-446a-8dc1-1dfda5e7e93d",
-                        "secretKey" to "63f81c69722acaa42f622ec16d702fdb",
-                        "isProd" to "false", // Biến xác định hệ thống demo/prod
-                        "CCCD" to "027998007724" // Truyền vào giá trị Căn cước vào để thực hiện xác thực luôn, nếu không truyền thì sử dụng quét QR
+                        "key" to "89f797ab-ec41-446a-8dc1-1dfda5e7e93d", // Cung cp bởi 2id
+                        "secretKey" to "63f81c69722acaa42f622ec16d702fdb", // Cung cp bởi 2id
+                        "isProd" to false, // Biến xác định hệ thống demo/prod
+                        "CCCD" to "" // Truyền vào giá trị Căn cước vào để thực hiện xác thực luôn, nếu không truyền thì sử dụng quét QR
                     )
                     // Chuyển đổi Map thành chuỗi JSON
                     val jsonString = JSONObject(jsonPayload).toString()
