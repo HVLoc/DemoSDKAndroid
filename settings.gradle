@@ -19,7 +19,8 @@ dependencyResolutionManagement {
         google()
         mavenCentral()
         maven {
-            url 'D:\\lochv\\Flutter project\\module_ekyc\\build\\host\\outputs\\repo'
+            url '/Users/apple/LocHV/Flutter/module_ekyc/build/host/outputs/repo'
+//            url 'D:\\lochv\\Flutter project\\module_ekyc\\build\\host\\outputs\\repo'
         }
         maven {
             url "$storageUrl/download.flutter.io"

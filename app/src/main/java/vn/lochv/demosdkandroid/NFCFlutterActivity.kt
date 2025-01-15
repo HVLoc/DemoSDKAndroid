@@ -10,41 +10,41 @@ import org.json.JSONObject
 import com.google.gson.Gson
 
 class NFCFlutterActivity : FlutterActivity() {
-    private val CHANNEL = "2id.ekyc"
 
     override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
         super.configureFlutterEngine(flutterEngine)
-        MethodChannel(
-            flutterEngine.dartExecutor.binaryMessenger,
-            CHANNEL
-        ).setMethodCallHandler { call, result ->
-            when (call.method) {
-                "setInitialNFC" -> {
-                    // Trả về kết quả cho Flutter
-                    result.success("Success NFC")
-                }
-                "dataNFC" -> {
-                    val userInfoModel = call.argument<Map<String, Any>>("value")
-                    // Chuyển đổi JSON sang NfcModel
-                    val gson = Gson()
-                    val json = gson.toJson(userInfoModel)
-                    val nfcModel = gson.fromJson(json, NfcModel::class.java)
 
-                    // Xử lý thông tin NFC
-                    print( gson.toJson(nfcModel))
+        // Tạo MethodChannel
+        val methodChannel = MethodChannel(flutterEngine.dartExecutor.binaryMessenger, CHANNEL)
 
-                    // Đóng Activity (Flutter SDK)
-                    finish()
+        // Gửi dữ liệu qua MethodChannel
+        methodChannel.invokeMethod(
+            SET_INITIAL_NFC, mapOf("key" to "Hello from Android")
+        )
+        methodChannel.setMethodCallHandler { call, result ->
+                when (call.method) {
+                    DATA_NFC -> {
+                        val userInfoModel = call.argument<Map<String, Any>>("value")
+                        // Chuyển đổi JSON sang NfcModel
+                        val gson = Gson()
+                        val json = gson.toJson(userInfoModel)
+                        val nfcModel = gson.fromJson(json, NfcModel::class.java)
 
-                    // Trả về kết quả cho Flutter
-                    result.success("SDK Closed")
-                }
+                        // Xử lý thông tin NFC
+                        print(gson.toJson(nfcModel))
 
-                else -> {
-                    result.notImplemented()
+                        // Đóng Activity (Flutter SDK)
+                        finish()
+
+                        // Trả về kết quả cho Flutter
+                        result.success("SDK Closed")
+                    }
+
+                    else -> {
+                        result.notImplemented()
+                    }
                 }
             }
-        }
     }
 
 }
